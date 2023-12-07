@@ -9,14 +9,15 @@
         <div class="col-4">
             <div class="list-group">
                 @foreach(var block in Model.Chain.TheChain) {
-                    <a href="/?id=@block.Timestamp" class="list-group-item list-group-item-action flex-column align-items-start active">
+                    <div>
+                    <a href="/?id=@block.Timestamp" class="list-group-item list-group-item-action flex-column align-items-start @if (block.Timestamp == Model.Id) { <text>active </text>}">
                         <div class="d-flex w-100 justify-content-between">
                             <h5 class="mb-1">@block.BlockHashString</h5>
                             <small>@block.Timestamp</small>
                         </div>
                         <p class="mb-1">@block.MessageSub</p>
                     </a>
-
+                    </div>
                 }
             </div>
 
