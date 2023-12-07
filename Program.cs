@@ -24,6 +24,6 @@ foreach(string fileName in fileEntries) {
 }
 //chain.AddBlock("First block");
 
-app.MapGet("/", () => chain.TheChain);
+app.MapGet("/api/chain", () => chain.TheChain);
 app.MapRazorPages();
 app.Run();
