@@ -1,5 +1,6 @@
 
 using System.Text.Json;
+using Microsoft.AspNetCore.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -10,6 +11,8 @@ builder.Services.Configure<Microsoft.AspNetCore.Http.Json.JsonOptions>(options =
     options.SerializerOptions.WriteIndented = true;
 
 });
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
 builder.Services.AddRazorPages();
 builder.Services.AddSingleton<HandleBlockService>();
 builder.Services.AddSingleton<IDateTimeProvider, DateTimeProvider>();
@@ -33,6 +36,12 @@ catch (Exception e)
 //chain.AddBlock("First block");
 
 app.MapGet("/api/chain", () => chain.TheChain);
+app.MapPost("/api/chain", (string message) => {
+    chain.AddBlock(message);
+    return chain.TheChain;
+});
 app.UseStaticFiles();
 app.MapRazorPages();
+app.UseSwagger();
+app.UseSwaggerUI();
 app.Run();
