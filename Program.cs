@@ -1,5 +1,6 @@
 
 using System.Text.Json;
+using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.OpenApi;
 
 var builder = WebApplication.CreateBuilder(args);
@@ -36,7 +37,7 @@ catch (Exception e)
 //chain.AddBlock("First block");
 
 app.MapGet("/api/chain", () => chain.TheChain);
-app.MapPost("/api/chain", (string message) => {
+app.MapPost("/api/chain", ([FromBody] string message) => {
     chain.AddBlock(message);
     return chain.TheChain;
 });
